@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Weather</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <link href="Style/MainCSS.css" rel="stylesheet">
+  <link href="Style/weather-icons.min.css" rel="stylesheet">
+  <link href="Style/weather-icons-winds.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> 
+  <link href="Fonts/weathericons-regular-webfont.svg" rel="stylesheet"> 
+  <script src="JavaScript/moment.js"></script>
+  <script src="JavaScript/moment-timezone-with-data.js"></script>
+</head>
+<body>
+
+<div class="body-container">
+<div class="container-fluid ct1">
+	<div id="main-details">
+		<form id="location-search" onsubmit="getLocationQuery()">
+			<i class="fa fa-search" aria-hidden="true"></i>
+			<input type="text" name="location" id="location-input" placeholder="Search location..."></input>
+		</form>
+		<h1 class="text-center time-of"></h1>
+		<h1 id="location-of-main" class="location-of"></h1>
+		<div class="button-con">
+			<button id="add-city-button" type="button"><i id="add-location" class="fa fa-plus-square" aria-hidden="true"></i></button>
+			<button id="remove-city-button" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+		</div>
+		<br>
+		<!-- <form id="location-search" onsubmit="getLocationQuery()">
+			<i class="fa fa-search" aria-hidden="true"></i>
+			<input type="text" name="location" id="location-input" placeholder="Search location..."></input>
+		</form><br>
+		<h1 class="text-center time-of"></h1> -->
+		<span class="current-text"><small>Right now...</small></span>
+		<h4 class="weather-icon-main">
+		<canvas id="main-canvas" width="64" height="64">
+		</canvas></h4>
+		<h1 class="temp-of-0 temp-of temp-of-main"></h1>
+		<h4 class="wind-speed"></h4>
+	</div>
+	
+</div>
+
+<div class="container-fluid ct2">
+	
+	<button type="button" id="right-button"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+	<button type="button" id="left-button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button>
+	<div class="weather-cols">
+	<div id="sub-details">
+	
+		<!--<h3 id="location-of-sub" class="location-of"></h3>-->
+		<h3 id="todays-date"></h3><h3 id="timezone-of"></h3>
+		<span id="unit-switch"><button type="button" class="unit-of" id="fahrenheit-of"><span id="fahrenheit-switch" >&#8457;</span></button> | <button type="button" class="unit-of" id="celsius-of"><span id="celsius-switch" >&#8451;</span></button></span><button type="button" id="see-hourly-btn">See hourly</button>
+		<button id="saved-locations"><i class="fa fa-globe" aria-hidden="true"></i> Saved locations</button>
+	</div>
+	
+	
+	<div id="weather-row" class="row">
+	<div id="day-0" class="col-sm-4 col-md-4 weather-col">
+		<div id="temp-display" class="text-center">
+			<h3 class="day-of-headers">Today <small id="day-of-0" class="color-small day-of-0"></small></h3>		
+			<h4 class="weather-icon"><canvas width="64" height="64">
+			</canvas></h4>
+			
+			<h3 class="temp-of temp-of-max temp-of-1"></h3>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-0"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-0"></span></h3>
+			<!--<p><span class="weather-of-descr"></span></p>-->
+		</div>
+	</div>
+	
+	<div id="day-1" class="col-sm-2 col-md-2 weather-col" >
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-1 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-2"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-1"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-1"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-2" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-2 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-3"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-2"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-2"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-3" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-3 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-4"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-3"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-3"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-4" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-4 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-5"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-4"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-4"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-5" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-5 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-6"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-5"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-5"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-6" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-6 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-7"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-6"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-6"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-7" class="col-sm-2 col-md-2 weather-col">
+		<div id="temp-display" class="text-center">
+			<h2 class="day-of-7 day-of-headers"></h2>
+			<h4 class="weather-icon"><canvas width="64" height="64"></canvas></h4>
+			<h2 class="temp-of temp-of-max temp-of-8"></h2>
+			<h3 class="temp-of"><small class="temp-of-low color-small" id="low-temp-7"></small></h3>
+			<h3 class="weather-header"><span id="weather-of-7"></span></h3>
+		</div>
+	</div>
+	
+	<div id="day-8" class="col-sm-4 col-md-4 weather-col">
+
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-0"></h4>
+			<h3 class="text-center"><span class="temp-of-1"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-1"></h4>
+			<h3 class="text-center"><span class="temp-of-2"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-2"></h4>
+			<h3 class="text-center"><span class="temp-of-3"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-3"></h4>
+			<h3 class="text-center"><span class="temp-of-4"></span></h3>
+		</div>
+	
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-4"></h4>
+			<h3 class="text-center"><span class="temp-of-5"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-5"></h4>
+			<h3 class="text-center"><span class="temp-of-6"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-6"></h4>
+			<h3 class="text-center"><span class="temp-of-7"></span></h3>
+		</div>
+		
+		<div class="col-sm-3 overview-box">
+			<h4 class="day-8-header text-center day-of-7"></h4>
+			<h3 class="text-center"><span class="temp-of-8"></span></h3>
+		</div>
+		<div class="col-sm-3 overview-box">
+		</div>
+		
+	</div>
+	</div>
+</div>
+
+<div class="container-fluid ct3">
+</div>
+</div>
+</div>
+
+<div class="container-fluid ct4">
+	<a class="saved-box" href="#">
+	<div id="first-loc-box" class="col-md-2 location-box">
+	<div class="location-box-details">
+		<h2 id="saved-location-0" class="text-center saved-location"></h2>
+		<span class="current-text-saved text-center">Right now...</span><br>
+		<h4 class="text-center weather-icon-saved"><canvas id="saved-location-canvas-0" width="64" height="64"></canvas></h4>
+		<h3 id="saved-location-temp-0" class="text-center location-temp"></h3>
+		<h4 id="saved-location-sum-0" class="text-center"></h4>
+		<p>Wind: <span id="saved-wind-temp-0"></span></p>
+	</div>	
+<!-- 	<div class="col-xs-12 col-sm-12 col-md-2 saved-days-col">
+			<div id="saved-day-0" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-0"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-0" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-0 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-0 color-small"></small></h4>
+				<p class="saved-temp s-sum-0 s-summary"></p>
+			</div>
+			<div id="saved-day-1" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-1"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-1" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-1 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-1 color-small"></small></h4>
+				<p class="saved-temp s-sum-1 s-summary"></p>
+			</div>
+			<div id="saved-day-2" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-2"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-2" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-2 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-2 color-small"></small></h4>
+				<p class="saved-temp s-sum-2 s-summary"></p>
+			</div>
+			<div id="saved-day-3" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-3"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-3" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-3 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-3 color-small"></small></h4>
+				<p class="saved-temp s-sum-3 s-summary"></p>
+			</div>
+			<div id="saved-day-4" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-4"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-4" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-4 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-4 color-small"></small></h4>
+				<p class="saved-temp s-sum-4 s-summary"></p>
+			</div>
+			<div id="saved-day-5" class="col-sm-12 col-of">
+				<p class="text-center s-day-of-5"></p>
+				<h4 class="weather-icon-main"><canvas class="s-icon-5" width="32" height="32"></canvas></h4>
+				<h4 class="s-temp-of-5 saved-temp"></h4>
+				<h4 class="saved-temp"><small class="s-temp-of-low-5 color-small"></small></h4>
+				<p class="saved-temp s-sum-5 s-summary"></p>
+			</div>
+		</div> -->
+	</div></a>
+	<a class="saved-box" href="#">
+	<div class="col-md-2 location-box">
+		<div class="location-box-details">
+			<h2 id="saved-location-1" class="text-center saved-location"></h2>
+			<span class="current-text-saved text-center">Right now...</span><br>
+			<h4 class="text-center weather-icon-saved"><canvas id="saved-location-canvas-1" width="64" height="64"></canvas></h4>
+			<h3 id="saved-location-temp-1" class="text-center location-temp"></h3>
+			<h4 id="saved-location-sum-1" class="text-center"></h4>
+			<p>Wind: <span id="saved-wind-temp-1"></span></p>
+		</div>
+		
+	</div>
+	</a>
+	<a class="saved-box" href="#">
+	<div class="col-md-2 location-box">
+		<div class="location-box-details">
+			<h2 id="saved-location-2" class="text-center saved-location"></h2>
+			<span class="current-text-saved text-center">Right now...</span><br>
+			<h4 class="text-center weather-icon-saved"><canvas id="saved-location-canvas-2" width="64" height="64"></canvas></h4>
+			<h3 id="saved-location-temp-2" class="text-center location-temp"></h3>
+			<h4 id="saved-location-sum-2" class="text-center"></h4>
+			<p>Wind: <span id="saved-wind-temp-2"></span></p>
+		</div>	
+	</div>
+	</a>
+	<a class="saved-box" href="#">
+	<div class="col-md-2 location-box">
+		<div class="location-box-details">
+			<h2 id="saved-location-3" class="text-center saved-location"></h2>
+			<span class="current-text-saved text-center">Right now...</span><br>
+			<h4 class="text-center weather-icon-saved"><canvas id="saved-location-canvas-3" width="64" height="64"></canvas></h4>
+			<h3 id="saved-location-temp-3" class="text-center location-temp"></h3>
+			<h4 id="saved-location-sum-3" class="text-center"></h4>
+			<p>Wind: <span id="saved-wind-temp-3"></span></p>
+		</div>
+	</div>
+	</a>
+	<a class="saved-box" href="#">
+	<div class="col-md-2 location-box">
+		<div class="location-box-details">
+			<h2 id="saved-location-4" class="text-center saved-location"></h2>
+			<span class="current-text-saved text-center">Right now...</span><br>
+			<h4 class="text-center weather-icon-saved"><canvas id="saved-location-canvas-4" width="64" height="64"></canvas></h4>
+			<h3 id="saved-location-temp-4" class="text-center location-temp"></h3>
+			<h4 id="saved-location-sum-4" class="text-center"></h4>
+			<p>Wind: <span id="saved-wind-temp-4"></span></p>
+		</div>
+	</div>
+	</a>
+	
+	<div id="empty-col" class="col-md-2">
+		<!--<div class="text-center high-low-details">
+			<h3><span class="temp-button">Highest</span> | <span class="temp-button">Lowest</span></h3>
+			<p>The highest temp is..<p>
+			<h2>68</h2>
+			<p>In Miami</p>
+		</div>-->
+	</div>
+</div> 
+
+<script src="JavaScript/skycons.js"></script>
+<script src="JavaScript/script.js"></script>
+
+</body>
+</html>

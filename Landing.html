@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Weather</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <link href="Style/LandingCSS.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> 
+  <link href="Fonts/weathericons-regular-webfont.svg" rel="stylesheet"> 
+</head>
+<body>
+
+<div class="body-container">
+<div class="container-fluid ct1">
+	<div id="main-details" class="text-center">
+		<h2 id="main-banner" class="text-center">Search for any location! City, zip, place, or coordinates</h2>
+		<form id="location-search" onsubmit="getLocationQuery(); return false;">
+		<div class="input-field">
+			<input type="text" name="location" id="location-input" placeholder="Search location..."></input>
+			<i class="fa fa-search" aria-hidden="true"></i>
+		</div>
+			<button type="submit" class="btn btn-default search-button">Search location</button>
+		</form>
+		
+	</div>
+</div>
+</div>
+
+
+<div id="credit-for">
+	<!--<p>Image by: <span id="author-of-image"></span></p>
+	<p>Location: <span id="location-of-image"></span></p>-->
+	<p>Photos provided by <a href="https://unsplash.com/">Unsplash</a></p>
+	<p>Website made by <a href="#">Tyler Jones</a></p>
+</div>
+
+<script src="JavaScript/LandingScript.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+body, html {
+	height: 100%;
+}
+
+body {	
+	background-image: url("https://source.unsplash.com/collection/768992/1600x900");
+	background-size: cover;
+	background-color: #212121;
+	background-position: 100% 100%;
+	font-family: Montserrat;
+}
+
+.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#main-banner {
+	color: white;
+	font-family: Oswald;
+	padding: 10px;
+}
+
+#main-details {
+	margin-top: 20%;
+}
+
+#location-search {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.input-field {
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	font-family: Oswald;
+	padding: 5px;
+	border: 1px solid #777;
+	border-radius: 5px 5px 5px 5px;
+	font-size: 1.7em;
+	background-color: #eeeeee;
+	color: #424242;
+}
+
+#location-input {
+	border: none;
+	background-color: #eeeeee;
+}
+
+#location-search i{
+	color: #777;
+}
+
+.search-button {
+	margin-top: 20px;
+	background-color: #2e7d32;
+	color: white;
+	padding: 14px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 20px 20px 20px 20px;
+	border: none;
+	font-size: 1.2em;
+}
+
+.search-button:hover {
+	background-color: white;
+	color: black;
+}
+
+#credit-for {
+	float: left;
+	position:fixed;
+	bottom:0;
+	left:0;
+	margin: 10px;
+	color: white;
+	padding-bottom: 0px !important;
+}
+
+.image-link {
+	color: white;
+}
