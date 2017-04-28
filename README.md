@@ -1,7 +1,7 @@
 # Weather Website
 *A website where you can search for weather basically anywhere*
 
-This is a personal project using the [Dark Sky API](https://darksky.net/poweredby/), and the *Google Maps API*. I used HTML, CSS, JavaScript, and jQuery for this project.
+This is a personal project using the [Dark Sky API](https://darksky.net/poweredby/), and the **Google Maps API**. I used HTML, CSS, JavaScript, and jQuery for this project.
 
 Many thanks to Dark Sky API, they provided an amazing resource, and was very simple to set up and start using!
 
