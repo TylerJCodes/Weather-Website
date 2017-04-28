@@ -81,3 +81,18 @@ body {
 .image-link {
 	color: white;
 }
+
+#attr-credit {
+	float: right;
+	position:fixed;
+	bottom:0;
+	right:0;
+	margin: 10px;
+	color: white;
+	padding-bottom: 0px !important;
+}
+
+#attr-credit a {
+	font-size: 1.5em;
+	color: white;
+}
