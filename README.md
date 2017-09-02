@@ -25,6 +25,7 @@ _/* > = not so important, >> = important, >>> very important */_
 !>> Add Multi-Language support
 !>> Add Images for background (main.html)
 !> Add better effects to 'saved-locations' boxes ('link hover') *(for users to determine it's clickable)*
+Add localstorage on some events (if not already added) to reduce strain on api calls
 
 #### Bugs
 
