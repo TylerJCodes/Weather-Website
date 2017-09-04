@@ -34,6 +34,8 @@ _/* > = not so important, >> = important, >>> very important */_
 
 !> Add a way to get location based on users geolocation
 
+!> Add bg-photos based on location
+
 #### Bugs
 
 !> Fix scroll issue with the 'sub details' section moving with weather-cols
