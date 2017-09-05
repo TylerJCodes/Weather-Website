@@ -22,8 +22,8 @@ if (getLocationsOf == null) {
 	var savedLocations = getLocationsOf;
 }
 var locationOf;
-var googleAPIKeyOf = 'AIzaSyCucEeFMlKcf4vbng0Wn9PQkoRzlcoPocs'; //'GOOGLE_MAPS_API_KEY';
-var darkskyAPIKeyOf = '2258602bc314382e0dd633305e57fff4'; //'DARKSKY_API_KEY';
+var googleAPIKeyOf = 'GOOGLE_MAPS_API_KEY';
+var darkskyAPIKeyOf = 'DARKSKY_API_KEY';
 //var coordsOf = '34.189857,-118.451355';
 
 function getParameterByName(name, url) { 
