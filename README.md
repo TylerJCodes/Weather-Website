@@ -26,16 +26,10 @@ _/* > = not so important, >> = important, >>> very important */_
 
 !>> Add Multi-Language support
 
-!>> Add Images for background (main.html)
-
 !> Add better effects to 'saved-locations' boxes ('link hover') *(for users to determine it's clickable)*
 
 !>> Add localstorage on some events (if not already added) to reduce strain on api calls
 
 !> Add a way to get location based on users geolocation
 
-!> Add bg-photos based on location
-
 #### Bugs
-
-!> Fix scroll issue with the 'sub details' section moving with weather-cols
