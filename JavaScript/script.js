@@ -22,8 +22,8 @@ if (getLocationsOf == null) {
 	var savedLocations = getLocationsOf;
 }
 var locationOf;
-var googleAPIKeyOf = 'GOOGLE_MAPS_API_KEY';
-var darkskyAPIKeyOf = 'DARKSKY_API_KEY';
+var googleAPIKeyOf = 'AIzaSyCucEeFMlKcf4vbng0Wn9PQkoRzlcoPocs'; //'GOOGLE_MAPS_API_KEY';
+var darkskyAPIKeyOf = '2258602bc314382e0dd633305e57fff4'; //'DARKSKY_API_KEY';
 //var coordsOf = '34.189857,-118.451355';
 
 function getParameterByName(name, url) { 
@@ -44,7 +44,11 @@ var getLocationQuery = function() {									//place_id
 		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + locationQuery + '&key=' + googleAPIKeyOf, function(response) { 
 			locationGeoCoding = response;
 			console.log(locationGeoCoding);
-			console.log('true');
+			//console.log('true');
+			var addressCompLength = locationGeoCoding.results[0].address_components.length // Is there ever more than 1 result?
+			var countryOf = locationGeoCoding.results[0].address_components[addressCompLength - 1].long_name;
+			getBG(countryOf)
+			
 			var latOf = locationGeoCoding.results[0].geometry.location.lat;
 			var lngOf = locationGeoCoding.results[0].geometry.location.lng;
 			placeID = locationGeoCoding.results[0].place_id;
@@ -421,7 +425,7 @@ $('.saved-box').click(function() {
 var pageOf = 1;
 $("#right-button").unbind().click(function() {
 	$("#right-button").css('display', 'none');
-	
+	$('#saved-locations').css('display', 'none');
 	$(".weather-cols").animate({
 		left: "-85%"
 	}, 2000, function() {
@@ -434,11 +438,13 @@ $("#right-button").unbind().click(function() {
 		for (restODays = 5; restODays <= 8; restODays++) {
 			$('#day-' + restODays).fadeIn('slow');
 		}
+		$('#saved-locations').fadeIn('slow');
 	}); //$('canvas:eq(0)').css('display', 'none');
 });
 
 $("#left-button").unbind().click(function() {
 	$("#left-button").css('display', 'none');
+	$('#saved-locations').css('display', 'none');
 	$(".weather-cols").animate({
 		left: "85%"
 	}, 2000, function() {
@@ -451,6 +457,7 @@ $("#left-button").unbind().click(function() {
 		for (restODays = 0; restODays <= 4; restODays++) {
 			$('#day-' + restODays).fadeIn('slow');
 		}
+		$('#saved-locations').fadeIn('slow');
 	}); //$('canvas:eq(0)').css('display', 'none');
 });
 
@@ -479,3 +486,63 @@ $('.button-con').mouseenter(function() {
 	 $('#add-city-button').prop("disabled", false);
 	
  });
+ 
+var getBG = function(country) {
+	var collectionID;
+	/* Location BG, starting countries (to display bg for) { (At least 6 photos ea)
+		- United States
+		- United Kingdom
+		- Japan
+		- China
+		- Russia
+		- Germany
+		- Spain
+		- Mexico
+		- Turkey
+		- France
+		- Italy
+		- South Africa
+		- * More to be added
+	}
+	*/
+
+	switch (country) {
+		case 'United States':
+			collectionID = '1147412';
+			break
+		case 'Japan':
+			collectionID = '1147421';
+			break
+		case 'China':
+			collectionID = '1147428';
+			break
+		case 'Russia':
+			collectionID = '1147437';
+			break
+		case 'Germany':
+			collectionID = '1147445';
+			break
+		case 'Spain':
+			collectionID = '1147453';
+			break
+		case 'Mexico':
+			collectionID = '1147457';
+			break
+		case 'Turkey':
+			collectionID = '1147464';
+			break
+		case 'France':
+			collectionID = '1147508';
+			break
+		case 'Italy':
+			collectionID = '1147514';
+			break
+		case 'South Africa':
+			collectionID = '1147521';
+			break
+		default:
+			collectionID = '779288';
+	}
+	$('body').css('background-image', 'url("https://source.unsplash.com/collection/' + collectionID + '/1600x900")');
+	
+}
