@@ -15,6 +15,19 @@ body {
 	padding-right: 0px;
 }
 
+#loading-con {
+	position: fixed;
+	left: 50%;
+	top: 40%;
+	transform: translate(-50%, -50%);
+	color: white;
+}
+
+#wind-loading {
+	background-color: #1E88E5;
+	border-radius: 50%;
+}
+
 /*CT1*/
 
 .ct1 {
@@ -98,6 +111,19 @@ body {
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
+#geo-location-btn {
+	font-size: 1.4em;
+	border: none;
+	border-radius: 5px 5px 5px 5px;
+	color: white;
+	padding: 5px;
+	background-color: #424242;
+	float: right;
+	right: 0;
+	position: absolute;
+	top: -100px;
+}
+
 #location-search {
 	padding: 5px;
 	float: right;
@@ -117,7 +143,7 @@ body {
 .time-of {
 	float: right;
 	display: inline;
-	margin-right: 30px;
+	margin-right: 10px;
 }
 	
 	
@@ -172,6 +198,10 @@ body {
 
 #day-8 {
 	padding: 0px;
+}
+
+.overview-box canvas {
+	margin-left: 40%;
 }
 
 .overview-box {
@@ -285,6 +315,14 @@ body {
 	background-color: rgba(255, 255, 255, 0.5);
 	border-right: 2px solid #777;
 	padding: 0px;
+	text-decoration: none;
+	color: white;
+	transition: 200ms;
+}
+
+.location-box:hover {
+	transition: 200ms;
+	background-color: rgba(119, 119, 119, 0.7);
 }
 
 .location-col {
@@ -400,6 +438,10 @@ body {
 
 
 @media screen and (max-width: 767px) { 
+	body {
+		background-image: none !important;
+	}
+	
 	.ct1 {
 		height: 300px;
 	}
@@ -476,19 +518,28 @@ body {
 	#day-8 {
 		display: none !important;
 	}
-}
-
-@media screen and (max-width: 550px) { 
+	
+	#geo-location-btn {
+		font-size: 1em;
+		top: -150px;
+	}
+	
 	#location-search {
 		float: none;
 	}
-	
+}
+
+@media screen and (max-width: 550px) { 
 	#location-of-main {
 		font-size: 30px;
 	}
 	
 	#main-details {
 		margin-left: 20px;
+	}
+	
+	#saved-locations {
+		font-size: 0.9em;
 	}
 }
 
@@ -498,6 +549,18 @@ body {
 		padding: 5px;
 		position: static;
 		font-size: 0.9em;
+	}
+	
+	#geo-location-btn {
+		border-radius: 5px 5px 5px 5px;
+		padding: 5px 10px 5px 10px;
+		position: static;
+		font-size: 0.9em;
+		margin-top: 3px;
+	}
+	
+	#geo-location-txt {
+		display: none;
 	}
 
 	#saved-locations .fa-globe {
@@ -518,5 +581,17 @@ body {
 	
 	.current-text {
 		display: none;
+	}
+}
+
+@media screen and (max-width: 340px) { 
+	#geo-location-btn {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	.unit-of {
+		padding-left: 5px;
+		padding-right: 8px;
 	}
 }

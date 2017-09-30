@@ -11,8 +11,7 @@ Coming from my previous project, I.E [Movie Lookup](https://github.com/TylerJDev
 
 ## What's in store for this project
 
-There's quite a few more things I need to do *(see to-do list)* with this project, but overall there isn't really anything big I will do with this in the near future. If anything comes up, this section will be updated!
-
+There's quite a few more things I need to do *(see the to-do list below)* with this project, but overall there isn't really anything big I will do with this in the near future. If anything comes up, you'll see it in the to-do list.
 
 ## To-Do & Bugs
 
@@ -20,22 +19,4 @@ _/* > = not so important, >> = important, >>> very important */_
 
 #### To-Do
 
-!> Move time under search input
-
-!> Remove empty cols in saved locations if not in use
-
 !>> Add Multi-Language support
-
-!>> Add Images for background (main.html)
-
-!> Add better effects to 'saved-locations' boxes ('link hover') *(for users to determine it's clickable)*
-
-!>> Add localstorage on some events (if not already added) to reduce strain on api calls
-
-!> Add a way to get location based on users geolocation
-
-!> Add bg-photos based on location
-
-#### Bugs
-
-!> Fix scroll issue with the 'sub details' section moving with weather-cols

@@ -20,3 +20,18 @@ $.getJSON('https://api.unsplash.com/collections/768992/photos/?client_id=API_KEY
 var getLocationQuery = function() {
 	window.location.href="Main.html" + "?location=" + $('#location-input').val();
 }
+
+$('#geo-location-btn').click(function() {
+	if ("geolocation" in navigator) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			//getCoords(position.coords.latitude, position.coords.longitude);
+			coordsOf = position.coords.latitude + ',' + position.coords.longitude;
+			window.location.href="Main.html" + "?location=" + coordsOf;
+		});
+	} else {
+		$(this).text('Sorry, geolocation isn\'t supported in your browser!');
+		$(this).prop('disabled', true);
+		$(this).css('background-color', '#D32F2F');
+	}
+	
+});

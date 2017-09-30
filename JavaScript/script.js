@@ -22,9 +22,17 @@ if (getLocationsOf == null) {
 	var savedLocations = getLocationsOf;
 }
 var locationOf;
-var googleAPIKeyOf = 'GOOGLEAPIKEY';
-var darkskyAPIKeyOf = 'DARKSKYAPIKEY';
+var googleAPIKeyOf = 'AIzaSyCucEeFMlKcf4vbng0Wn9PQkoRzlcoPocs';
+var darkskyAPIKeyOf = '2258602bc314382e0dd633305e57fff4';
 //var coordsOf = '34.189857,-118.451355';
+
+ var loadingIcon = function() {
+	var loadingCon = new Skycons({"color": "white"});
+	loadingCon.set("wind-loading", Skycons.WIND);
+	loadingCon.play();
+}
+
+loadingIcon();
 
 function getParameterByName(name, url) { 
     if (!url) {
@@ -43,7 +51,7 @@ var queryStringOf = getParameterByName('location');
 var getLocationQuery = function() {									//place_id
 		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + locationQuery + '&key=' + googleAPIKeyOf, function(response) { 
 			locationGeoCoding = response;
-			console.log(locationGeoCoding);
+			//console.log(locationGeoCoding);
 			//console.log('true');
 			var addressCompLength = locationGeoCoding.results[0].address_components.length // Is there ever more than 1 result?
 			var countryOf = locationGeoCoding.results[0].address_components[addressCompLength - 1].long_name;
@@ -69,8 +77,6 @@ var getLocationQuery = function() {									//place_id
 				}
 			}*/
 			
-			
-			
 			runWeatherCall();
 		});
 
@@ -84,7 +90,7 @@ if (queryStringOf != null) {
 var runWeatherCall = function() {
 $.getJSON('https://api.darksky.net/forecast/' + darkskyAPIKeyOf + '/' + coordsOf + '?lang=en&callback=?', function(response) { //Callback?
 		DataOf = response;
-		console.log(DataOf);
+		//console.log(DataOf);
 		if (savedDisplay != true) {
 			weatherAPI();
 		} else if (savedDisplay === true) {
@@ -121,7 +127,7 @@ var weatherAPI = function() {
 	var weatherOfCurrent = DataOf.currently.summary; //Gets summary from 'currently' to display within header
 	var weatherOfDesc = DataOf.hourly.summary; 
 	
-	var canvasCount = 1; // 'Placeholder' var as to not count 'main-canvas'
+	var canvasCount = 0; // 'Placeholder' var as to not count 'main-canvas'
 	$('canvas:eq(0)').attr('class', DataOf.currently.icon); //Gets 'icon' data, puts into canvas to get an icon, using 'Skycons' (see below)
 
 	$('.temp-of-0').html(tempOfCurrent + "<small>&#176; F</small>"); //Puts current temp (tempOfCurrent) into '#temp-of-0' (header)
@@ -132,15 +138,16 @@ var weatherAPI = function() {
 	
 	getTime();
 	for (var dayCount = 0; dayCount < DataOf.daily.data.length; dayCount++) { //Gets and puts data in 4 days (not counting first or '0' index
+		//alert(DataOf.daily.data.length);
 		tempOfMax = Math.floor(DataOf.daily.data[dayCount].temperatureMax); //Grabs MAX temp for that day
 		tempOfMin = Math.floor(DataOf.daily.data[dayCount].temperatureMin); //Grabs MIN temp for that day
 		var weatherOfDaily = DataOf.daily.data[dayCount].summary;
-		$('canvas:eq(' + canvasCount + ')').attr('class', DataOf.daily.data[dayCount].icon);
-		$('.temp-of-' + canvasCount).html(tempOfMax + "<small>&#176;</small>");
+		$('.temp-display').eq(canvasCount).find('canvas').attr('class', DataOf.daily.data[dayCount].icon);
+		$('.temp-of-' + (canvasCount + 1)).html(tempOfMax + "<small>&#176;</small>");
 		$('#low-temp-' + dayCount).html(tempOfMin);
 		$('#weather-of-' + dayCount).html(weatherOfDaily);
 		//$('.weather-of-descr').html('"' + weatherOfDesc + '"');
-		
+		$('#sum-box-' + dayCount).attr('class', DataOf.daily.data[dayCount].icon);
 		var dateOf = new Date(DataOf.daily.data[dayCount].time*1000); // Gets 'date-time; in seconds, then multiplies to turn into 'milliseconds'
 		var getDayOf = dateOf.getDay(); // Gets day number (of the week) from 'dateOf' var
 		$('.day-of-' + dayCount).html(daysOfTheWeek[getDayOf]); // Puts day from the week via the daysOfTheWeek array, into header (I.E [getDayOf == 1] = 'Monday')
@@ -149,7 +156,7 @@ var weatherAPI = function() {
 	if (revGeoCoding == undefined) {
 		getLocationDets();
 	}
-	
+	$('#loading-con').css('display', 'none');
 	runSkyCons(); //Runs 'skycons' (weather icon display)
 } 
   
@@ -206,7 +213,7 @@ $('#fahrenheit-of').click(function() {
 var getTime = function() { // This function gets the 'time'
 	var newDate = new Date();
 	var currentMoment = moment.tz(DataOf.timezone).toString();
-	console.log(currentMoment);
+	//console.log(currentMoment);
 	var nDateZone = currentMoment.substring(15, currentMoment.length); // Cuts string using (substring)
 	var grabDate = newDate.getDate(); // Day in the month (1-31)
 	var timezoneOf;
@@ -260,7 +267,7 @@ $('#see-hourly-btn').click(function() {
 	var hourOf;
 	var canvasCountH = 1;
 	tempUnit = "Imperial";
-	console.log(gtTypeForcast);
+	//console.log(gtTypeForcast);
 	if ( gtTypeForcast == 'Hourly') {
 		gtTypeForcast = 'Daily';
 	$('.temp-of-low').css('display', 'none');
@@ -326,7 +333,7 @@ $('#see-hourly-btn').click(function() {
 var getLocationDets = function() {
 	$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + coordsOf + '&key=' + googleAPIKeyOf, function(response) { 
 			revGeoCoding = response;
-			console.log(revGeoCoding);
+			//console.log(revGeoCoding);
 			$('#add-city-button').css('display', 'inline-block'); //As to not load the button in before true/false (if statement) can be determined
 			//locationOf = revGeoCoding.results[4].formatted_address; //Possibly change '4' into something better, due to differing array sizes?
 			//locationOf = DataOf.results[0].formatted_address;
@@ -341,7 +348,7 @@ var getLocationDets = function() {
 						$('#add-location').removeClass('fa-plus-square').addClass('fa-check').css('color', '#2e7d32');
 						$('#add-city-button').prop("disabled", true);
 					} else {
-						console.log('false');
+						//console.log('false');
 					}
 				} 
 			}
@@ -369,11 +376,11 @@ var runSkyCons = function() {
 icons.play();
 }
 
-console.log(savedLocations);
+//console.log(savedLocations);
 $('#add-city-button').unbind().click(function() {
 	if (savedLocations.length < 5) {
 		savedLocations.push(placeID);
-		console.log(savedLocations);
+		//console.log(savedLocations);
 		$('#add-location').removeClass('fa-plus-square').addClass('fa-check').css('color', '#2e7d32');
 		$('#add-city-button').prop("disabled", true);
 		checkedTF = true;
@@ -393,23 +400,21 @@ $('#saved-locations').unbind().click(function() {
 var savedLocationsFunc = function() {
 	placeID = savedLocations;
 	getLocationsOf = JSON.parse(localStorage.getItem('saved-locations'));
-	console.log(savedLocations);
+	//console.log(savedLocations);
 	getSavedLocations();
 }
 var querySaved = 0;
 function getSavedLocations() {
 	//for (querySaved = 0; querySaved < savedLocations.length; querySaved++) {
 		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?place_id=' + savedLocations[querySaved] + '&key=' + googleAPIKeyOf, function(response) { 
-				locationResponse = response;
-				console.log(locationResponse);
-				savedDisplay = true;
-				var savedLat = locationResponse.results[0].geometry.location.lat;
-				var savedLng = locationResponse.results[0].geometry.location.lng;
-				coordsOf = savedLat + "," + savedLng;
-				runWeatherCall(); // Wait until to proceed..
-				$('#saved-location-' + querySaved).html(locationResponse.results[0].formatted_address); //Gets name of location and puts it into main header
-					
-					
+			locationResponse = response;
+			//console.log(locationResponse);
+			savedDisplay = true;
+			var savedLat = locationResponse.results[0].geometry.location.lat;
+			var savedLng = locationResponse.results[0].geometry.location.lng;
+			coordsOf = savedLat + "," + savedLng;
+			runWeatherCall(); // Wait until to proceed..
+			$('#saved-location-' + querySaved).html(locationResponse.results[0].formatted_address); //Gets name of location and puts it into main header		
 		});
 	
 }
@@ -474,18 +479,39 @@ $('.button-con').mouseenter(function() {
   }
 });
 
- $('#remove-city-button').click(function() {
-	 var indexToRemove = savedLocations.indexOf(currentPlaceID); 
-	 savedLocations.splice(indexToRemove, 1);
-	 localStorage.setItem('saved-locations', JSON.stringify(savedLocations));
-	 checkedTF = false;					
+$('#remove-city-button').click(function() {
+	var indexToRemove = savedLocations.indexOf(currentPlaceID); 
+	savedLocations.splice(indexToRemove, 1);
+	localStorage.setItem('saved-locations', JSON.stringify(savedLocations));
+	checkedTF = false;					
 	 
-	 $('#remove-city-button').css('display', 'none');
-	 $('#add-location').css('display', 'inline-block');
-	 $('#add-location').removeClass('fa-check').addClass('fa-plus-square').css('color', 'white');
-	 $('#add-city-button').prop("disabled", false);
+	$('#remove-city-button').css('display', 'none');
+	$('#add-location').css('display', 'inline-block');
+	$('#add-location').removeClass('fa-check').addClass('fa-plus-square').css('color', 'white');
+	$('#add-city-button').prop("disabled", false);
+});
+
+$('#geo-location-btn').click(function() {
+	if ("geolocation" in navigator) {
+		$('#loading-con').css('display', 'inline-block');
+		navigator.geolocation.getCurrentPosition(function(position) {
+			//getCoords(position.coords.latitude, position.coords.longitude);
+			coordsOf = position.coords.latitude + ',' + position.coords.longitude;
+			window.location.href="Main.html" + "?location=" + coordsOf;
+		},
+		function (error) { 
+		  if (error.code == error.PERMISSION_DENIED)
+			  $('#loading-con').css('display', 'none');
+		});
+	} else {
+		$(this).text('Sorry, geolocation isn\'t supported in your browser!');
+		$(this).prop('disabled', true);
+		$(this).css('background-color', '#D32F2F');
+	}
 	
- });
+});
+
+
  
 var getBG = function(country) {
 	var collectionID;
@@ -546,3 +572,17 @@ var getBG = function(country) {
 	$('body').css('background-image', 'url("https://source.unsplash.com/collection/' + collectionID + '/1600x900")');
 	
 }
+
+/* var loadingIcon = function() {
+	alert('ok');
+	var loadingCon = new Skycons({"color": "white"});
+	//loadingCon.set("wind-loading", Skycons.WIND);
+	loadingCon.add("wind-loading", Skycons.PARTLY_CLOUDY_DAY);
+	skycons.play();
+	alert('okay');
+};
+
+$('#geo-location-btn').click(function() {
+	alert('CLIIIIIICKED');
+	loadingIcon()
+}); */
