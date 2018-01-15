@@ -22,10 +22,11 @@ if (getLocationsOf == null) {
 	var savedLocations = getLocationsOf;
 }
 var locationOf;
-var googleAPIKeyOf = 'AIzaSyCucEeFMlKcf4vbng0Wn9PQkoRzlcoPocs';
-var darkskyAPIKeyOf = '2258602bc314382e0dd633305e57fff4';
+var googleAPIKeyOf = 'apiKeyHere';
+var darkskyAPIKeyOf = 'apiKeyHere';
 //var coordsOf = '34.189857,-118.451355';
 
+console.log('Google API key & Dark Sky key needed!');
  var loadingIcon = function() {
 	var loadingCon = new Skycons({"color": "white"});
 	loadingCon.set("wind-loading", Skycons.WIND);
